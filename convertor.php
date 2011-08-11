@@ -13,8 +13,8 @@ spl_autoload_register(function ($class) {
 $dom = new DOMDocument();
 $dom->load($_SERVER['argv'][1]);
 
-$manager = new Pegas\Gridnine\ReferenceManager($dom);
+$bookings = new Pegas\Gridnine\Xtrip\BookingIterator($dom);
 
-foreach ($manager->getBookingFiles() as $bookingFile) {
+foreach ($bookings as $booking) {
     continue;
 }
