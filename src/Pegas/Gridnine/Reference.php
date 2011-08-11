@@ -2,10 +2,16 @@
 
 namespace Pegas\Gridnine;
 
-class Reference extends Entity
+class Reference extends Entity implements Referenceable
 {
-    public function getObject()
+    protected $followed = null;
+
+    public function follow()
     {
-        return $this->getReferenceManager()->fetchReference($this);
+        if ($this->followed === null) {
+            $this->followed = $this->getReferenceManager()->fetchReference($this);
+        }
+
+        return $this->followed;
     }
 }

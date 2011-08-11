@@ -4,11 +4,11 @@ namespace Pegas\Gridnine\Entities;
 
 use DOMElement;
 use DateTime;
-use Pegas\Gridnine\Entity;
+use Pegas\Gridnine\DOMEntity;
 use Pegas\Gridnine\ReferenceManager;
 use Pegas\Gridnine\Reference;
 
-class BookingFile extends Entity
+class BookingFile extends DOMEntity
 {
     /**
      * @var \Pegas\Gridnine\ReferenceManager
@@ -60,25 +60,21 @@ class BookingFile extends Entity
      * @param \DOMElement $element
      */
     public function __construct(ReferenceManager $referenceManager, DOMElement $element) {
-        // Entity data
-        $type = $element->getAttribute('type');
-        $uid = $element->getAttribute('uid');
-
-        parent::__construct($referenceManager, $type, $uid);
+        parent::__construct($referenceManager, $element);
 
         // Basic
-        $this->number = $this->fetchSingleNode($element, 'number');
-        $this->createdAt = new DateTime($this->fetchSingleNode($element, 'createDate'));
+        $this->number = $this->fetchSingleNode('number');
+        $this->createdAt = new DateTime($this->fetchSingleNode('createDate'));
 
         // References
-        $this->customerReference = $this->fetchReference($element, 'customer');
-        $this->customerProfileReference = $this->fetchReference($element, 'customerProfile');
-        $this->agencyReference = $this->fetchReference($element, 'agency');
+        $this->customerReference = $this->fetchReference('customer');
+        $this->customerProfileReference = $this->fetchReference('customerProfile');
+        $this->agencyReference = $this->fetchReference('agency');
 
         // Arrays of references
-        $this->travellersReferences = $this->fetchReferences($element, 'travellers');
-        $this->reservationsReferences = $this->fetchReferences($element, 'reservations');
-        $this->appliedRulesReferences = $this->fetchReferences($element, 'appliedRules');
+        $this->travellersReferences = $this->fetchReferences('travellers');
+        $this->reservationsReferences = $this->fetchReferences('reservations');
+        $this->appliedRulesReferences = $this->fetchReferences('appliedRules');
     }
 
     /**
@@ -100,9 +96,9 @@ class BookingFile extends Entity
     /**
      * @return null|string
      */
-    public function getCustomerReference()
+    public function getCustomer()
     {
-        return $this->customerReference;
+        return $this->customerReference->follow();
     }
 
     /**
@@ -143,66 +139,5 @@ class BookingFile extends Entity
     public function getAppliedRulesReferences()
     {
         return $this->appliedRulesReferences;
-    }
-
-    /**
-     * @param \DOMElement $element
-     * @param string $name
-     * @return null|string
-     */
-    private function fetchSingleNode(DOMElement $element, $name) {
-        $nodes = $element->getElementsByTagName($name);
-
-        if ($nodes->length != 1) {
-            return null;
-        }
-
-        return $nodes->item(0)->nodeValue;
-    }
-
-    /**
-     * @param \DOMElement $element
-     * @param string $name
-     * @return null
-     */
-    private function fetchReference(DOMElement $element, $name) {
-        $nodes = $element->getElementsByTagName($name);
-
-        if ($nodes->length != 1) {
-            return null;
-        }
-
-        $node = $nodes->item(0);
-        $type = $node->getAttribute('type');
-        $uid = $node->getAttribute('uid');
-
-        $reference = new Reference($this->referenceManager, $type, $uid);
-
-        return $reference;
-    }
-
-    /**
-     * @param \DOMElement $element
-     * @param string $name
-     * @return array|null
-     */
-    private function fetchReferences(DOMElement $element, $name) {
-        $nodes = $element->getElementsByTagName($name);
-
-        if ($nodes->length != 1) {
-            return null;
-        }
-
-        $references = array();
-
-        $arrayNodes = $nodes->item(0)->getElementsByTagName('item');
-        foreach ($arrayNodes as $arrayNode) {
-            $type = $arrayNode->getAttribute('type');
-            $uid = $arrayNode->getAttribute('uid');
-
-            $references[] = new Reference($this->referenceManager, $type, $uid);
-        }
-
-        return $references;
     }
 }

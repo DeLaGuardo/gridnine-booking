@@ -46,6 +46,8 @@ class ReferenceManager {
             return null;
         }
 
-        return $nodes->item(0);
+        $node = $nodes->item(0);
+
+        return EntityFactory::factory($reference, $node);
     }
 }
