@@ -7,6 +7,11 @@ use DOMNodeList;
 class BookingFilesIterator implements \Iterator
 {
     /**
+     * @var \Pegas\Gridnine\ReferenceManager
+     */
+    protected $referenceManager;
+
+    /**
      * @var \DOMNodeList
      */
     protected $nodeList;
@@ -22,13 +27,15 @@ class BookingFilesIterator implements \Iterator
     private $currentBookingFile;
 
     /**
+     * @param \Pegas\Gridnine\ReferenceManager $referenceManager
      * @param \DOMNodeList $nodeList
      */
-    public function __construct(DOMNodeList $nodeList) {
+    public function __construct(ReferenceManager $referenceManager, DOMNodeList $nodeList) {
+        $this->referenceManager = $referenceManager;
         $this->nodeList = $nodeList;
 
         if ($nodeList->length > 0) {
-            $this->currentBookingFile = new BookingFile($nodeList->item(0));
+            $this->currentBookingFile = new Entities\BookingFile($referenceManager, $nodeList->item(0));
         }
     }
 
@@ -52,7 +59,7 @@ class BookingFilesIterator implements \Iterator
         $this->position++;
 
         if ($this->valid()) {
-            $this->currentBookingFile = new BookingFile($this->nodeList->item($this->position));
+            $this->currentBookingFile = new Entities\BookingFile($this->referenceManager, $this->nodeList->item($this->position));
         }
     }
 

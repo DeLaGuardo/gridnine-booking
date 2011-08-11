@@ -29,6 +29,23 @@ class ReferenceManager {
      */
     public function getBookingFiles() {
         $nodes = $this->xpath->query('/export/bookingFiles/bookingFile');
-        return new BookingFilesIterator($nodes);
+        return new BookingFilesIterator($this, $nodes);
+    }
+
+    /**
+     * @param \Pegas\Gridnine\Reference $reference
+     * @return \DOMNode|null
+     */
+    public function fetchReference(Reference $reference) {
+        $type = $reference->getType();
+        $uid = $reference->getUid();
+
+        $nodes = $this->xpath->query('/export/entities/entity[@type="'.$type.'"][@uid="'.$uid.'"]');
+
+        if ($nodes->length != 1) {
+            return null;
+        }
+
+        return $nodes->item(0);
     }
 }
