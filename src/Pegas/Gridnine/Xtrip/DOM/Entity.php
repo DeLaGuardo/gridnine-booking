@@ -65,6 +65,30 @@ abstract class Entity extends BaseEntity
         return $referenceList;
     }
 
+    protected function parseArray($name)
+    {
+        $array = array();
+
+        $context = $this->parseNode($name);
+
+        if ($context === null) {
+            return array();
+        }
+
+        $nodes = $this->getBookingIterator()->getDOMXpath()->query('./item', $context);
+
+        for ($i = 0; $i < $nodes->length; $i++) {
+            $array[] = $nodes->item($i)->nodeValue;
+        }
+
+        return $array;
+    }
+
+    protected function parseBoolean($name)
+    {
+        return $this->parseValue($name) == 'true';
+    }
+
     private function parseNode($name)
     {
         $nodes = $this->getBookingIterator()->getDOMXpath()->query(sprintf('./%s', $name), $this->node);

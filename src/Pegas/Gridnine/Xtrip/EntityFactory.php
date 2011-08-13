@@ -18,6 +18,9 @@ class EntityFactory
             case 'com.gridnine.xtrip.common.model.profile.Communication':
                 return new DOM\Communication($bookingIterator, $node);
 
+            case 'com.gridnine.xtrip.common.model.profile.Organization':
+                return new DOM\Organization($bookingIterator, $node);
+
             default:
                 throw new \RuntimeException();
         }

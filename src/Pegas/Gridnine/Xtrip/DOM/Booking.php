@@ -78,9 +78,9 @@ class Booking extends Entity
         return $this->customerReference->proceed();
     }
 
-    public function getCustomerProfileReference()
+    public function getCustomerProfile()
     {
-        return $this->customerProfileReference;
+        return $this->customerProfileReference->proceed();
     }
 
     public function getAgencyReference()
