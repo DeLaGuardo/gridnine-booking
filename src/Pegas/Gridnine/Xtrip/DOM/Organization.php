@@ -60,11 +60,13 @@ class Organization extends Entity
     private $simpleTaxed;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
     private $financeDocumentPropertiesReference;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
     private $financeRestrictionsReference;

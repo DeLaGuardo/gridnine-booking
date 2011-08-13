@@ -27,21 +27,25 @@ class Booking extends Entity
     private $customerProfileReference;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
     private $agencyReference;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
     private $travellersReferenceList;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
     private $reservationsReferenceList;
 
     /**
+     * @todo
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
     private $appliedRulesReferenceList;
