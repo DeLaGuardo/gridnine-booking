@@ -4,20 +4,79 @@ namespace Pegas\Gridnine\Xtrip\DOM;
 
 class Organization extends Entity
 {
+    /**
+     * @var boolean
+     */
     private $active;
+
+    /**
+     * @var boolean
+     */
     private $disable;
+
+    /**
+     * @var string
+     */
     private $code;
+
+    /**
+     * @var string
+     */
     private $shortName;
+
+    /**
+     * @var string
+     */
     private $fullName;
-    private $legalForm; // TODO
+
+    /**
+     * @todo
+     */
+    private $legalForm;
+
+    /**
+     * @var string
+     */
     private $registrationId;
+
+    /**
+     * @var string
+     */
     private $kpp;
+
+    /**
+     * @var string
+     */
     private $okpoCode;
+
+    /**
+     * @var boolean
+     */
     private $foreign;
+
+    /**
+     * @var boolean
+     */
     private $simpleTaxed;
+
+    /**
+     * @var \Pegas\Gridnine\Xtrip\Reference\Entity
+     */
     private $financeDocumentPropertiesReference;
+
+    /**
+     * @var \Pegas\Gridnine\Xtrip\Reference\Entity
+     */
     private $financeRestrictionsReference;
+
+    /**
+     * @var string
+     */
     private $notes;
+
+    /**
+     * @var array
+     */
     private $types;
 
     protected function parse()

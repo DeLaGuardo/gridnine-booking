@@ -9,42 +9,42 @@ class Booking extends Entity
     /**
      * @var string
      */
-    protected $number;
+    private $number;
 
     /**
      * @var \DateTime
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
-    protected $customerReference;
+    private $customerReference;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
-    protected $customerProfileReference;
+    private $customerProfileReference;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\Entity
      */
-    protected $agencyReference;
+    private $agencyReference;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
-    protected $travellersReferenceList;
+    private $travellersReferenceList;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
-    protected $reservationsReferenceList;
+    private $reservationsReferenceList;
 
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
-    protected $appliedRulesReferenceList;
+    private $appliedRulesReferenceList;
 
     protected function parse()
     {

@@ -7,7 +7,7 @@ class Customer extends Entity
     /**
      * @var \Pegas\Gridnine\Xtrip\Reference\EntityList
      */
-    protected $communicationsReferences;
+    private $communicationsReferences;
 
     public function parse()
     {

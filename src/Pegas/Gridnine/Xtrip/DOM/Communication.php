@@ -7,16 +7,26 @@ class Communication extends Entity
     /**
      * @var string
      */
-    protected $sense;
+    private $sense;
 
     /**
      * @var string
      */
-    protected $type;
+    private $communcationType;
 
     protected function parse()
     {
         $this->sense = $this->parseValue('sense');
-        $this->type = $this->parseValue('type');
+        $this->communcationType = $this->parseValue('type');
+    }
+
+    public function getSense()
+    {
+        return $this->sense;
+    }
+
+    public function getCommuncationType()
+    {
+        return $this->communcationType;
     }
 }
