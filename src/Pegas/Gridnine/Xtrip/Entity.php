@@ -2,22 +2,24 @@
 
 namespace Pegas\Gridnine\Xtrip;
 
+use Pegas\Gridnine\Xtrip\DOM\Iterator;
+
 abstract class Entity
 {
-    private $bookingIterator;
+    private $iterator;
     private $type;
     private $uid;
 
-    public function __construct(BookingIterator $bookingIterator, $type, $uid)
+    public function __construct(Iterator $iterator, $type, $uid)
     {
-        $this->bookingIterator = $bookingIterator;
+        $this->iterator = $iterator;
         $this->type = $type;
         $this->uid = $uid;
     }
 
-    public function getBookingIterator()
+    public function getIterator()
     {
-        return $this->bookingIterator;
+        return $this->iterator;
     }
 
     public function getType()

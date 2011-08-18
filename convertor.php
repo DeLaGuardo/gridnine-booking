@@ -13,7 +13,7 @@ spl_autoload_register(function ($class) {
 $dom = new DOMDocument();
 $dom->load($_SERVER['argv'][1]);
 
-$bookings = new Pegas\Gridnine\Xtrip\BookingIterator($dom);
+$bookings = new Pegas\Gridnine\Xtrip\DOM\BookingIterator($dom);
 
 foreach ($bookings as $booking) {
     continue;

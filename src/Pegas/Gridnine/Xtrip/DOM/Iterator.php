@@ -1,34 +1,39 @@
 <?php
 
-namespace Pegas\Gridnine\Xtrip;
+namespace Pegas\Gridnine\Xtrip\DOM;
 
 use DOMDocument;
 use DOMXPath;
 use Pegas\Gridnine\Xtrip\Reference\Entity as Reference;
 
-class BookingIterator implements \Iterator
+abstract class Iterator implements \Iterator
 {
     private $dom;
     private $xpath;
 
-    private $nodes;
-    private $position = 0;
+    /**
+     * @var \DOMNodeList
+     */
+    protected $nodes;
+    protected $position = 0;
 
     public function __construct(DOMDocument $dom)
     {
         $this->dom = $dom;
         $this->xpath = new DOMXPath($dom);
-        $this->nodes = $this->xpath->query('/export/bookingFiles/bookingFile');
+        $this->nodes = $this->getNodeList($this->xpath);
     }
+
+    /**
+     * @abstract
+     * @param \DOMXPath $xpath
+     * @return \DOMNodeList
+     */
+    abstract protected function getNodeList(DOMXPath $xpath);
 
     public function rewind()
     {
         $this->position = 0;
-    }
-
-    public function current()
-    {
-        return new DOM\Booking($this, $this->nodes->item($this->position));
     }
 
     public function key()
@@ -44,11 +49,6 @@ class BookingIterator implements \Iterator
     public function valid()
     {
         return $this->position < $this->nodes->length;
-    }
-
-    public function getDOMDocument()
-    {
-        return $this->dom;
     }
 
     public function getDOMXpath()
