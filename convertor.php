@@ -15,6 +15,11 @@ $dom->load($_SERVER['argv'][1]);
 
 $bookings = new Pegas\Gridnine\Xtrip\DOM\BookingIterator($dom);
 
-foreach ($bookings as $booking) {
-    continue;
-}
+$outputFormatter = new Pegas\Gridnine\Xtrip\Formatter\Output();
+$simpleReport = new Pegas\Gridnine\Xtrip\Report\SampleReport($bookings, $outputFormatter);
+$simpleReport->make();
+
+$csvFormatter = new Pegas\Gridnine\Xtrip\Formatter\CSV();
+$simpleReport->setFormatter($csvFormatter);
+$simpleReport->make();
+echo $csvFormatter->format();
