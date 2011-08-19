@@ -58,10 +58,20 @@ abstract class Iterator implements \Iterator
 
     public function findEntityNode(Reference $reference)
     {
+        return $this->findNode($reference, '/export/entities/entity[@type="%s"][@uid="%s"]');
+    }
+
+    public function findDictonaryNode(Reference $reference)
+    {
+        return $this->findNode($reference, '/export/dictionaries/dictionary[@type="%s"][@uid="%s"]');
+    }
+
+    private function findNode(Reference $reference, $query)
+    {
         $type = $reference->getType();
         $uid = $reference->getUid();
 
-        $nodes = $this->xpath->query(sprintf('/export/entities/entity[@type="%s"][@uid="%s"]', $type, $uid));
+        $nodes = $this->xpath->query(sprintf($query, $type, $uid));
         return $nodes->item(0);
     }
 }
